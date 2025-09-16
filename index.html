@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>Soumik Bairagi | Web Developer & Designer</title>
+    <meta name="description" content="Welcome to the professional portfolio of Soumik Bairagi. I build creative, high-performance websites and digital experiences. Explore my work, skills, and contact me for collaboration." />
+    <meta name="keywords" content="web developer, portfolio, react developer, soumik bairagi, website creation, seo services, front-end developer, gemini ai" />
+    <meta name="author" content="Soumik Bairagi" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.com/" />
+    <meta property="og:title" content="Soumik Bairagi | Web Developer & Designer" />
+    <meta property="og:description" content="Creative portfolio showcasing web development projects, skills, and services." />
+    <meta property="og:image" content="https://picsum.photos/1200/630" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://your-domain.com/" />
+    <meta property="twitter:title" content="Soumik Bairagi | Web Developer & Designer" />
+    <meta property="twitter:description" content="Creative portfolio showcasing web development projects, skills, and services." />
+    <meta property="twitter:image" content="https://picsum.photos/1200/630" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              'primary': '#2563eb', // blue-600
+              'primary-dark': '#1d4ed8', // blue-700
+              'accent': '#059669', // emerald-600
+              'accent-dark': '#047857', // emerald-700
+              'dark-bg': '#020617', // slate-950
+              'dark-card': '#0f172a', // slate-900
+              'light-bg': '#f8fafc', // slate-50
+              'light-card': '#ffffff',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+              'fade-in': 'fadeIn 0.5s ease-out forwards',
+              'subtle-float': 'subtleFloat 6s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              subtleFloat: {
+                '0%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' },
+                '100%': { transform: 'translateY(0px)' },
+              }
+            },
+          },
+        },
+        darkMode: 'class',
+      }
+    </script>
+
+    <!-- FAQ Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is the cost of a new website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "My primary website creation package costs ₹5000. This includes a free consultation, a fully responsive design, and initial SEO setup to get you started."
+        }
+      },{
+        "@type": "Question",
+        "name": "How long does it take to build a website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A standard portfolio or small business website typically takes 1-2 weeks from the initial consultation to launch, depending on the complexity and content availability."
+        }
+      },{
+        "@type": "Question",
+        "name": "Will my website be mobile-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely! Responsive, mobile-first design is a core part of my service. Your website will look and function perfectly on all devices, including desktops, tablets, and smartphones."
+        }
+      },{
+        "@type": "Question",
+        "name": "Do you provide SEO services?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, basic on-page SEO setup is included in the website creation package. This includes meta tags, alt tags, and a sitemap to help search engines find and rank your site. I also offer more advanced SEO packages."
+        }
+      }]
+    }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "@google/genai": "https://aistudiocdn.com/google-genai@0.15.0"
+  }
+}
+</script>
+</head>
+<body class="transition-colors duration-500">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
