@@ -1,12 +1,12 @@
 import React from 'react';
-import { SearchIcon } from './icons/SearchIcon';
+import { LightbulbIcon } from './icons/LightbulbIcon';
 import { PencilSquareIcon } from './icons/PencilSquareIcon';
-import { CogIcon } from './icons/CogIcon';
+import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { RocketLaunchIcon } from './icons/RocketLaunchIcon';
 
 const processSteps = [
     {
-        icon: <SearchIcon className="w-10 h-10 mb-4 text-accent" />,
+        icon: <LightbulbIcon className="w-10 h-10 mb-4 text-accent" />,
         title: "1. Discovery & Strategy",
         description: "We start with a deep dive into your goals, audience, and project requirements. This phase is all about understanding your vision to build a solid strategic foundation for the project."
     },
@@ -16,7 +16,7 @@ const processSteps = [
         description: "Next, I create wireframes and high-fidelity mockups. You'll get to see and approve the visual direction and user flow before any code is written, ensuring the final product is exactly what you envision."
     },
     {
-        icon: <CogIcon className="w-10 h-10 mb-4 text-accent" />,
+        icon: <CodeBracketIcon className="w-10 h-10 mb-4 text-accent" />,
         title: "3. Development & Coding",
         description: "This is where the magic happens. I write clean, efficient, and scalable code using modern technologies to bring the design to life, providing you with regular updates along the way."
     },
@@ -29,7 +29,7 @@ const processSteps = [
 
 const Process: React.FC = () => {
     return (
-        <section id="process" className="py-12 md:py-20 animate-fade-in-up">
+        <section id="process" className="animate-fade-in-up">
             <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">My Development Process</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl mx-auto">

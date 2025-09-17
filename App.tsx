@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { ColorMode, UIStyle, Page } from './types';
+import { ColorMode, UIStyle } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
-import AboutPage from './components/AboutPage';
 import ProjectsPage from './components/ProjectsPage';
 import ContactPage from './components/ContactPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
-
-// --- Page Components ---
-
-const HomePage: React.FC<{ setPage: (page: Page) => void }> = ({ setPage }) => (
-    <div className="space-y-16 md:space-y-24">
-        <Hero setPage={setPage} />
-        <Services setPage={setPage} />
-        <Process />
-        <TechStack />
-        <Testimonials />
-        <FAQ />
-    </div>
-);
 
 const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
     const sleek = `
@@ -87,7 +73,6 @@ const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
 const App: React.FC = () => {
   const [colorMode, setColorMode] = useState<ColorMode>(ColorMode.Dark);
   const [uiStyle, setUiStyle] = useState<UIStyle>(UIStyle.Sleek);
-  const [page, setPage] = useState<Page>('home');
 
   useEffect(() => {
     const savedColorMode = localStorage.getItem('portfolio-color-mode') as ColorMode;
@@ -112,17 +97,6 @@ const App: React.FC = () => {
     localStorage.setItem('portfolio-ui-style', uiStyle);
   }, [uiStyle]);
 
-  const renderPage = () => {
-    switch (page) {
-      case 'about': return <AboutPage />;
-      case 'projects': return <ProjectsPage />;
-      case 'contact': return <ContactPage />;
-      case 'home':
-      default:
-        return <HomePage setPage={setPage} />;
-    }
-  };
-
   return (
     <div className={`font-sans bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 min-h-screen`}>
       <Header 
@@ -130,11 +104,18 @@ const App: React.FC = () => {
         setColorMode={setColorMode}
         uiStyle={uiStyle}
         setUiStyle={setUiStyle}
-        page={page}
-        setPage={setPage}
       />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {renderPage()}
+        <div className="space-y-16 md:space-y-24">
+            <Hero />
+            <Services />
+            <Process />
+            <ProjectsPage />
+            <TechStack />
+            <Testimonials />
+            <FAQ />
+            <ContactPage />
+        </div>
       </main>
       <Footer />
       <StyleInjector uiStyle={uiStyle} />

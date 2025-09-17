@@ -81,7 +81,7 @@ interface TestimonialsProps {
 
 const Testimonials: React.FC<TestimonialsProps> = ({ className }) => {
   return (
-    <section id="testimonials" className={`py-12 md:py-20 animate-fade-in-up ${className}`}>
+    <section id="testimonials" className={`animate-fade-in-up ${className}`}>
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">What My Clients Say</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Real results from satisfied partners.</p>

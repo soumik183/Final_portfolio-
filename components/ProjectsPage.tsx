@@ -36,7 +36,7 @@ const projects: Project[] = [
 
 const ProjectsPage: React.FC = () => {
     return (
-        <section id="projects" className="py-12 md:py-20 animate-fade-in">
+        <section id="projects" className="animate-fade-in">
             <div className="text-center mb-12">
                 <h1 className="text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">A selection of projects I'm proud of.</p>

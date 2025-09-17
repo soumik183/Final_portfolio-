@@ -4,7 +4,7 @@ import type { FAQItem as FAQItemType } from '../types';
 const faqData: FAQItemType[] = [
   {
     question: "What is the cost of a new website?",
-    answer: "My primary website creation package costs ₹5000. This includes a free consultation, a fully responsive design, and initial SEO setup to get you started.",
+    answer: "My primary website creation package costs ₹4999. This includes a free consultation, a fully responsive design, and initial SEO setup to get you started.",
   },
   {
     question: "How long does it take to build a website?",
@@ -63,7 +63,7 @@ const FAQ: React.FC<FAQProps> = ({ className }) => {
   };
 
   return (
-    <section id="faq" className={`py-12 md:py-20 animate-fade-in-up ${className}`}>
+    <section id="faq" className={`animate-fade-in-up ${className}`}>
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">Frequently Asked Questions</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Quick answers to common queries.</p>

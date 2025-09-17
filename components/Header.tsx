@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ColorMode, UIStyle, Page } from '../types';
+import { ColorMode, UIStyle } from '../types';
 import { PaletteIcon } from './icons/PaletteIcon';
 import { SunIcon } from './icons/SunIcon';
 import { MoonIcon } from './icons/MoonIcon';
@@ -9,21 +9,55 @@ interface HeaderProps {
   setColorMode: (mode: ColorMode) => void;
   uiStyle: UIStyle;
   setUiStyle: (style: UIStyle) => void;
-  page: Page;
-  setPage: (page: Page) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUiStyle, page, setPage }) => {
+const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUiStyle }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const settingsRef = useRef<HTMLDivElement>(null);
 
-  const navLinks: { name: string; page: Page, icon?: React.ReactNode }[] = [
-    { name: 'Home', page: 'home' },
-    { name: 'About', page: 'about' },
-    { name: 'Projects', page: 'projects' },
-    { name: 'Contact', page: 'contact' },
+  // Smooth scrolling and active section highlighting
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActiveSection(entry.target.id);
+            }
+        });
+    }, { 
+        rootMargin: '0px 0px -60% 0px', // Trigger when section is in the upper 40% of viewport
+        threshold: 0
+    });
+
+    sections.forEach(section => {
+        if(section) observer.observe(section);
+    });
+
+    return () => sections.forEach(section => {
+        if(section) observer.unobserve(section);
+    });
+  }, []);
+
+  const navLinks: { name: string; href: string }[] = [
+    { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
+    { name: 'Services', href: '#services' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsMenuOpen(false); // Close mobile menu on click
+  };
 
   const uiStyleOptions = [
     { id: UIStyle.Sleek, name: 'Sleek' },
@@ -32,9 +66,9 @@ const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUi
     { id: UIStyle.Minimal, name: 'Minimal' },
   ];
 
-  const baseLinkClasses = "font-medium transition-colors duration-300 cursor-pointer";
-  const defaultThemeLink = `text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white`;
-  const activeLinkClasses = `text-primary dark:text-blue-400 font-semibold`;
+  const baseLinkClasses = "px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer";
+  const defaultThemeLink = `text-slate-600 hover:bg-slate-200/50 dark:text-slate-300 dark:hover:bg-slate-700/50`;
+  const activeLinkClasses = `bg-primary text-white shadow-md`;
 
   // Close settings panel when clicking outside
   useEffect(() => {
@@ -49,14 +83,14 @@ const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUi
 
   return (
     <header className="sticky top-0 z-50 shadow-md backdrop-blur-lg bg-light-bg/80 dark:bg-dark-bg/80 dark:border-b dark:border-slate-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex items-center justify-between h-16">
-          <a onClick={() => setPage('home')} className="text-2xl font-bold cursor-pointer text-slate-800 dark:text-white">Soumik B.</a>
+          <a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="text-2xl font-bold cursor-pointer text-slate-800 dark:text-white">Soumik</a>
           
-          <nav className="hidden md:flex md:items-center md:space-x-8">
+          <nav className="hidden md:flex md:items-center md:space-x-1">
             {navLinks.map((link) => (
-              <a key={link.name} onClick={() => setPage(link.page)} className={`${baseLinkClasses} ${defaultThemeLink} ${page === link.page ? activeLinkClasses : ''}`}>
-                {link.icon}{link.name}
+              <a key={link.name} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className={`${baseLinkClasses} ${defaultThemeLink} ${activeSection === link.href.substring(1) ? activeLinkClasses : ''}`}>
+                {link.name}
               </a>
             ))}
           </nav>
@@ -96,24 +130,30 @@ const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUi
             </div>
             
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-              </button>
+                <button 
+                    onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                    className="relative z-50 w-8 h-8 flex flex-col justify-center items-center" 
+                    aria-label="Toggle menu" 
+                    aria-expanded={isMenuOpen}
+                >
+                    <span className={`block w-6 h-0.5 bg-current transform transition duration-300 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
+                    <span className={`block w-6 h-0.5 bg-current my-1 transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                    <span className={`block w-6 h-0.5 bg-current transform transition duration-300 ease-in-out ${isMenuOpen ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
+                </button>
             </div>
           </div>
         </div>
         
-        {isMenuOpen && (
-          <div className="md:hidden py-4">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <a key={link.name} onClick={() => { setPage(link.page); setIsMenuOpen(false); }} className={`${baseLinkClasses} ${defaultThemeLink} ${page === link.page ? activeLinkClasses : ''} text-center p-2 rounded-md`}>
-                  {link.icon}{link.name}
-                </a>
-              ))}
+        {/* Mobile Menu */}
+        <div className={`md:hidden absolute top-16 left-0 right-0 bg-light-bg/95 dark:bg-dark-bg/95 backdrop-blur-sm shadow-lg rounded-b-lg overflow-hidden transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0' : '-translate-y-[150%]'}`}>
+            <nav className="flex flex-col space-y-2 p-4">
+                {navLinks.map((link) => (
+                    <a key={link.name} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className={`${baseLinkClasses} ${defaultThemeLink} ${activeSection === link.href.substring(1) ? activeLinkClasses : ''} text-center`}>
+                        {link.name}
+                    </a>
+                ))}
             </nav>
-          </div>
-        )}
+        </div>
       </div>
     </header>
   );

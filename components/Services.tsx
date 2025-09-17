@@ -1,5 +1,4 @@
 import React from 'react';
-import { Page } from '../types';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { PaletteIcon } from './icons/PaletteIcon';
 import { DevicePhoneMobileIcon } from './icons/DevicePhoneMobileIcon';
@@ -20,7 +19,7 @@ const ServiceFeature: React.FC<{ icon: React.ReactNode; title: string; children:
 );
 
 
-const Services: React.FC<{ setPage: (page: Page) => void }> = ({ setPage }) => {
+const Services: React.FC = () => {
   const features = [
     { 
       icon: <PaletteIcon className="w-6 h-6 text-primary dark:text-blue-400" />, 
@@ -55,7 +54,7 @@ const Services: React.FC<{ setPage: (page: Page) => void }> = ({ setPage }) => {
   ];
     
   return (
-    <section id="services" className="py-12 md:py-20 animate-fade-in-up">
+    <section id="services" className="animate-fade-in-up">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">My Signature Web Creation Package</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-3xl mx-auto text-lg">
@@ -69,7 +68,7 @@ const Services: React.FC<{ setPage: (page: Page) => void }> = ({ setPage }) => {
                  <h3 className="text-2xl font-bold text-slate-800 dark:text-white brutalist-font">Everything You Need, One Simple Price</h3>
                  <div className="flex justify-center items-center gap-3 my-4">
                     <span className="text-2xl md:text-3xl text-slate-500 dark:text-slate-400 line-through">₹7000</span>
-                    <p className="text-4xl md:text-5xl font-extrabold text-primary dark:text-blue-400">₹5000</p>
+                    <p className="text-4xl md:text-5xl font-extrabold text-primary dark:text-blue-400">₹4999</p>
                     <span className="bg-red-100 text-red-800 text-sm font-semibold px-2.5 py-1 rounded-full dark:bg-red-900 dark:text-red-300">~28% OFF</span>
                 </div>
                 <p className="text-slate-500 dark:text-slate-400 mb-8">Limited time offer. No hidden fees. Just one complete solution.</p>
@@ -84,9 +83,9 @@ const Services: React.FC<{ setPage: (page: Page) => void }> = ({ setPage }) => {
             </div>
 
              <div className="mt-10 text-center">
-                <button onClick={() => setPage('contact')} className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark transition-transform transform hover:scale-105 duration-300">
+                <a href="#contact" className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
                     Claim Your Free Consultation
-                </button>
+                </a>
             </div>
           </div>
         </div>

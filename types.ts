@@ -10,8 +10,6 @@ export enum UIStyle {
   Minimal = 'minimal',
 }
 
-export type Page = 'home' | 'about' | 'projects' | 'contact';
-
 export type Testimonial = {
   quote: string;
   name: string;

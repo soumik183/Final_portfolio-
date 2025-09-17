@@ -14,6 +14,8 @@ export const RocketLaunchIcon: React.FC<IconProps> = ({ className }) => (
         className={className}
         aria-hidden="true"
     >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.95 14.95 0 00-5.84-2.56m0 0a14.95 14.95 0 00-2.33 4.94m2.33-4.94a14.95 14.95 0 005.11 6.53m-5.11-6.53a14.95 14.95 0 00-6.53 5.11m6.53-5.11a6 6 0 014.01 1.63m-4.01-1.63L9.5 2.25M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.95 14.95 0 00-5.84-2.56m0 0a14.95 14.95 0 00-2.33 4.94m2.33-4.94a14.95 14.95 0 005.11 6.53m-5.11-6.53a14.95 14.95 0 00-6.53 5.11m6.53-5.11a6 6 0 014.01 1.63m-4.01-1.63L9.5 2.25" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
+      <circle cx="15" cy="9" r="1" fill="currentColor" />
     </svg>
 );
