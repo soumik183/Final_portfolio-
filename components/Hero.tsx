@@ -23,22 +23,13 @@ const Hero: React.FC<HeroProps> = () => {
               <p className="text-lg md:text-xl text-primary dark:text-blue-400 font-medium animate-fade-in-up" style={{ animationDelay: '0.3s' }}>A Passionate Web Developer & Designer</p>
               <div className="max-w-3xl mx-auto text-base md:text-lg text-slate-600 dark:text-slate-300 space-y-4 mt-8 text-left animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                   <p>
-                    From the moment I wrote my first "Hello World," I was captivated by the web's power to connect people and ideas. My journey has been a continuous exploration, driven by a relentless curiosity and a passion for building beautiful, functional things for the internet.
+                    I started my journey with a simple ‘Hello World,’ and ever since, I’ve loved how the web can bring people and ideas together. I enjoy making websites and apps that look good, work smoothly, and are easy for anyone to use.
                   </p>
                   <p>
-                    I thrive on transforming complex problems into elegant, intuitive, and high-performance digital experiences. My goal is to create work that not only meets user needs but also leaves a lasting, positive impact.
+                    My focus is always on people first—technology should feel simple and helpful, not complicated. I write clean code so the sites I build stay fast, reliable, and ready to grow.
                   </p>
                   <p>
-                    My expertise covers modern frontend and backend technologies, but my true focus is always on the end-user. I believe the best technology is invisible, facilitating a seamless journey that connects a user to their goals without friction.
-                  </p>
-                  <p>
-                    This philosophy drives me to write exceptionally clean, maintainable, and scalable code. I aim to build a robust foundation for future growth that stands the test of time.
-                  </p>
-                  <p>
-                    Whether it's a sleek marketing site or a complex web app, I'm committed to creating products that are as delightful to use as they are technically sound. I build websites that are not only visually stunning but also universally accessible, resilient, and optimized for speed.
-                  </p>
-                  <p>
-                    I believe in collaboration and enjoy working closely with clients to translate their vision into a digital reality that exceeds expectations and delivers tangible results.
+                    From small personal sites to full web apps, I put care into every detail so the result feels natural, friendly, and useful. Working with others excites me, and I love turning ideas into digital spaces that not only meet needs but also create a positive, lasting impact.
                   </p>
               </div>
           </div>
