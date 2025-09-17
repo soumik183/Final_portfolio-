@@ -83,7 +83,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className }) => {
   return (
     <section id="testimonials" className={`animate-fade-in-up ${className}`}>
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">What My Clients Say</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">What My Clients Say</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Real results from satisfied partners.</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

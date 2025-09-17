@@ -6,7 +6,7 @@ const projects: Project[] = [
     {
         title: 'Community Forum Platform',
         description: 'A full-stack forum application built with the T3 Stack, featuring authentication, posting, commenting, and nested replies.',
-        imageUrl: 'https://picsum.photos/seed/project4/600/400',
+        imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80',
         tech: ['Next.js', 'TypeScript', 'Prisma', 'tRPC', 'Tailwind'],
         liveUrl: '#',
         repoUrl: 'https://github.com/soumikbairagi/community-forum',
@@ -14,21 +14,21 @@ const projects: Project[] = [
     {
         title: 'Real-time Chat Application',
         description: 'A responsive chat app using Socket.IO for instant messaging, user presence indicators, and room-based communication.',
-        imageUrl: 'https://picsum.photos/seed/project5/600/400',
+        imageUrl: 'https://images.unsplash.com/photo-1581347997950-89115f8a29a3?q=80&w=1280&auto=format&fit=crop',
         tech: ['React', 'Node.js', 'Express', 'Socket.IO'],
         repoUrl: 'https://github.com/soumikbairagi/realtime-chat-app',
     },
     {
         title: 'E-commerce Platform',
         description: 'A full-featured e-commerce site with product listings, a shopping cart, and a secure checkout process, built with a focus on performance.',
-        imageUrl: 'https://picsum.photos/seed/project1/600/400',
+        imageUrl: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80',
         tech: ['React', 'Node.js', 'Express', 'MongoDB'],
         liveUrl: '#',
     },
     {
         title: 'Data Visualization Dashboard',
         description: 'An interactive dashboard for visualizing complex datasets, allowing users to filter and explore data in real-time.',
-        imageUrl: 'https://picsum.photos/seed/project2/600/400',
+        imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80',
         tech: ['D3.js', 'React', 'Tailwind CSS'],
         liveUrl: '#',
     }
@@ -38,7 +38,7 @@ const ProjectsPage: React.FC = () => {
     return (
         <section id="projects" className="animate-fade-in">
             <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
+                <h1 className="text-3xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">A selection of projects I'm proud of.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">

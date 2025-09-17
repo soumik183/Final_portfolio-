@@ -26,7 +26,7 @@ const FAQItem: React.FC<{ item: FAQItemType; isOpen: boolean; onClick: () => voi
       <h3>
         <button
           onClick={onClick}
-          className="flex justify-between items-center w-full py-5 text-left font-semibold text-lg"
+          className="flex justify-between items-center w-full py-5 text-left font-semibold text-base md:text-lg"
           aria-expanded={isOpen}
         >
           <span className="brutalist-font">{item.question}</span>
@@ -65,7 +65,7 @@ const FAQ: React.FC<FAQProps> = ({ className }) => {
   return (
     <section id="faq" className={`animate-fade-in-up ${className}`}>
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">Frequently Asked Questions</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">Frequently Asked Questions</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Quick answers to common queries.</p>
       </div>
       <div className="max-w-3xl mx-auto">

@@ -25,7 +25,7 @@ const TechStack: React.FC = () => {
     return (
         <section id="tech-stack" className="animate-fade-in-up">
             <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold brutalist-font creative-font">My Go-To Technologies</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Go-To Technologies</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">I use a modern, high-performance tech stack to build my projects.</p>
             </div>
             <div className="max-w-4xl mx-auto">

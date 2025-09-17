@@ -3,8 +3,10 @@ import { GitHubIcon } from './icons/GitHubIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 
 // Firebase Imports (v9 Modular SDK)
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getDatabase, ref, push, serverTimestamp, Database } from 'firebase/database';
+// FIX: The build environment seems to be using an older Firebase version (v8 or v9 compat).
+// Reverting to v8 namespaced syntax to resolve import errors.
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 
 // --- Firebase Initialization ---
@@ -22,14 +24,16 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-let database: Database | undefined;
+let database: firebase.database.Database | undefined;
 
-// FIX: Updated Firebase initialization to v9 modular syntax to match the imported SDK version.
-// This resolves the "does not provide an export named 'default'" error.
+// FIX: Updated Firebase initialization to v8 compatible syntax to match the project's likely dependency version.
+// This resolves issues with modular imports not being found.
 if (firebaseConfig.apiKey) {
     try {
-        const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-        database = getDatabase(app);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        database = firebase.database();
     } catch (error) {
         console.error("Firebase initialization failed:", error);
     }
@@ -119,13 +123,13 @@ const ContactPage: React.FC = () => {
         setStatus('sending');
 
         try {
-            // FIX: Updated Firebase database calls to v9 compatible syntax.
-            const messagesRef = ref(database!, 'contactMessages');
-            await push(messagesRef, {
+            // FIX: Updated Firebase database calls to v8 compatible syntax.
+            const messagesRef = database!.ref('contactMessages');
+            await messagesRef.push({
                 name: name.trim(),
                 email: email.trim(),
                 message: message.trim(),
-                createdAt: serverTimestamp()
+                createdAt: firebase.database.ServerValue.TIMESTAMP
             });
 
             setStatus('success');
@@ -155,8 +159,8 @@ const ContactPage: React.FC = () => {
     return (
         <section id="contact" className="animate-fade-in">
             <div className="max-w-4xl mx-auto text-center">
-                <h1 className="text-4xl md:text-5xl font-bold brutalist-font creative-font">Let's Build Something Great</h1>
-                <p className="text-slate-600 dark:text-slate-400 mt-4 mb-12 text-lg">
+                <h1 className="text-3xl md:text-5xl font-bold brutalist-font creative-font">Let's Build Something Great</h1>
+                <p className="text-slate-600 dark:text-slate-400 mt-4 mb-12 text-base md:text-lg">
                     I'm currently available for freelance work and collaborations. Have a project in mind? Send me a message below.
                 </p>
 
