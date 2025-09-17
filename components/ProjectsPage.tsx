@@ -6,7 +6,7 @@ const projects: Project[] = [
     {
         title: 'Community Forum Platform',
         description: 'A full-stack forum application built with the T3 Stack, featuring authentication, posting, commenting, and nested replies.',
-        imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1280&auto=format&fit=crop',
         tech: ['Next.js', 'TypeScript', 'Prisma', 'tRPC', 'Tailwind'],
         liveUrl: '#',
         repoUrl: 'https://github.com/soumikbairagi/community-forum',
@@ -14,14 +14,14 @@ const projects: Project[] = [
     {
         title: 'Real-time Chat Application',
         description: 'A responsive chat app using Socket.IO for instant messaging, user presence indicators, and room-based communication.',
-        imageUrl: 'https://images.unsplash.com/photo-1581347997950-89115f8a29a3?q=80&w=1280&auto=format&fit=crop',
+        imageUrl: 'https://images.unsplash.com/photo-1517694712202-1428bc64a259?q=80&w=1280&auto=format&fit=crop',
         tech: ['React', 'Node.js', 'Express', 'Socket.IO'],
         repoUrl: 'https://github.com/soumikbairagi/realtime-chat-app',
     },
     {
         title: 'E-commerce Platform',
         description: 'A full-featured e-commerce site with product listings, a shopping cart, and a secure checkout process, built with a focus on performance.',
-        imageUrl: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80',
+        imageUrl: 'https://images.unsplash.com/photo-1528698827591-e19ccd72a58e?q=80&w=1280&auto=format&fit=crop',
         tech: ['React', 'Node.js', 'Express', 'MongoDB'],
         liveUrl: '#',
     },
