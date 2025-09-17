@@ -29,7 +29,7 @@ const processSteps = [
 
 const Process: React.FC = () => {
     return (
-        <section id="process" className="animate-fade-in-up">
+        <section id="process">
             <div className="text-center mb-12">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Development Process</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl mx-auto">
@@ -38,7 +38,11 @@ const Process: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {processSteps.map((step, index) => (
-                    <div key={index} className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:-translate-y-2">
+                    <div 
+                        key={index} 
+                        className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:-translate-y-2 animate-on-scroll"
+                        style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                    >
                         {step.icon}
                         <h3 className="text-xl font-bold mb-2 brutalist-font">{step.title}</h3>
                         <p className="text-slate-600 dark:text-slate-300">{step.description}</p>

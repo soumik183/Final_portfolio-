@@ -18,9 +18,9 @@ const Hero: React.FC<HeroProps> = () => {
         <div className="max-w-4xl mx-auto">
           {/* About Section Content */}
           <div id="about">
-              <img src="https://i.ibb.co/PVnLvR2/AIRetouch-20250917-122058327.png" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700 animate-fade-in-up" style={{ animationDelay: '0.1s' }}/>
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.2s' }}>Hi, I'm Soumik</h1>
-              <p className="text-lg md:text-xl text-primary dark:text-blue-400 font-medium animate-fade-in-up" style={{ animationDelay: '0.3s' }}>A Passionate Web Developer & Designer</p>
+              <img src="https://i.ibb.co/PVnLvR2/AIRetouch-20250917-122058327.png" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700 animate-fade-in-up transition-transform duration-300 hover:scale-105" style={{ animationDelay: '0.1s' }}/>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.2s' }}>Hi, I'm Soumik</h1>
+              <p className="text-base sm:text-lg md:text-xl text-primary dark:text-blue-400 font-medium animate-fade-in-up" style={{ animationDelay: '0.3s' }}>A Passionate Web Developer & Designer</p>
               <div className="max-w-3xl mx-auto text-base md:text-lg text-slate-600 dark:text-slate-300 space-y-4 mt-8 text-left animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                   <p>
                     I started my journey with a simple ‘Hello World,’ and ever since, I’ve loved how the web can bring people and ideas together. I enjoy making websites and apps that look good, work smoothly, and are easy for anyone to use.
@@ -38,15 +38,15 @@ const Hero: React.FC<HeroProps> = () => {
 
           {/* Original Hero Content */}
           <div>
-              <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tighter mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
                   Crafting Digital Excellence
               </h2>
-              <p className="text-base md:text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+              <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                   I build beautiful, fast, and user-centric web experiences that drive results.
               </p>
               <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-                  <a href="#contact" className="primary-button inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
-                      Get in Touch
+                  <a href="#projects" className="primary-button inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
+                      View My Work
                   </a>
               </div>
           </div>

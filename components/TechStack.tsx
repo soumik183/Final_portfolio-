@@ -23,15 +23,19 @@ const skills = [
 
 const TechStack: React.FC = () => {
     return (
-        <section id="tech-stack" className="animate-fade-in-up">
+        <section id="tech-stack">
             <div className="text-center mb-12">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Go-To Technologies</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">I use a modern, high-performance tech stack to build my projects.</p>
             </div>
             <div className="max-w-4xl mx-auto">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
-                    {skills.map(skill => (
-                        <div key={skill.name} className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-blue-500/20">
+                    {skills.map((skill, index) => (
+                        <div 
+                            key={skill.name} 
+                            className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-blue-500/20 animate-on-scroll tech-card"
+                            style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                        >
                             <div className="h-14 w-14 flex items-center justify-center">
                                 {skill.icon}
                             </div>

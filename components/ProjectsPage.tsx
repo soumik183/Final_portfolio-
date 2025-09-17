@@ -39,14 +39,18 @@ const projects: Project[] = [
 
 const ProjectsPage: React.FC = () => {
     return (
-        <section id="projects" className="animate-fade-in">
+        <section id="projects">
             <div className="text-center mb-12">
-                <h1 className="text-3xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">A selection of projects I'm proud of.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                {projects.map(p => (
-                    <div key={p.title} className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group">
+                {projects.map((p, index) => (
+                    <div 
+                        key={p.title} 
+                        className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group animate-on-scroll"
+                        style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                    >
                         <img className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" src={p.imageUrl} alt={p.title} />
                         <div className="p-6 flex flex-col h-full">
                             <h3 className="text-xl font-bold mb-2 brutalist-font">{p.title}</h3>

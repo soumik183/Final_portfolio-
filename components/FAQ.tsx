@@ -63,12 +63,12 @@ const FAQ: React.FC<FAQProps> = ({ className }) => {
   };
 
   return (
-    <section id="faq" className={`animate-fade-in-up ${className}`}>
+    <section id="faq" className={className}>
       <div className="text-center mb-12">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">Frequently Asked Questions</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Quick answers to common queries.</p>
       </div>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto animate-on-scroll">
         {faqData.map((item, index) => (
           <FAQItem
             key={index}

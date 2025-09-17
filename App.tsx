@@ -7,7 +7,6 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
-import ContactPage from './components/ContactPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
 
@@ -97,6 +96,27 @@ const App: React.FC = () => {
     localStorage.setItem('portfolio-ui-style', uiStyle);
   }, [uiStyle]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.1 }
+    );
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, [uiStyle]); // Re-run if UI style changes, as it might affect layout/visibility
+
   return (
     <div className={`font-sans bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 min-h-screen`}>
       <Header 
@@ -114,7 +134,6 @@ const App: React.FC = () => {
             <TechStack />
             <Testimonials />
             <FAQ />
-            <ContactPage />
         </div>
       </main>
       <Footer />
