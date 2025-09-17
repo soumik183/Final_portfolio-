@@ -5,7 +5,7 @@ import { LinkedInIcon } from './icons/LinkedInIcon';
 // --- Web3Forms Configuration ---
 // The access key is configured via the WEB3FORMS_ACCESS_KEY environment variable.
 // You can get a free key at https://web3forms.com/
-const WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
+const WEB3FORMS_ACCESS_KEY = typeof process !== 'undefined' ? process.env.WEB3FORMS_ACCESS_KEY : undefined;
 
 
 // --- Icon Components ---
@@ -133,7 +133,7 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <section id="contact" className="animate-fade-in">
+        <section id="contact" className="animate-on-scroll">
             <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">Let's Build Something Great</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-4 mb-12 text-base md:text-lg">

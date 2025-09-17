@@ -10,6 +10,7 @@ import ProjectsPage from './components/ProjectsPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
 import ContactPage from './components/ContactPage';
+import AboutPage from './components/AboutPage';
 
 const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
     const sleek = `
@@ -132,6 +133,7 @@ const App: React.FC = () => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="space-y-24 md:space-y-32">
             <Hero />
+            <AboutPage />
             <Services />
             <Process />
             <ProjectsPage />

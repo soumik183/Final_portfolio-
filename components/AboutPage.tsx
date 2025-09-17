@@ -2,8 +2,8 @@ import React from 'react';
 
 const AboutPage: React.FC = () => {
     return (
-        <section id="about" className="animate-fade-in text-center">
-            <img src="https://picsum.photos/id/1005/150/150" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700" />
+        <section id="about" className="animate-on-scroll text-center">
+            <img src="https://i.ibb.co/PVnLvR2/AIRetouch-20250917-122058327.png" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700 transition-transform duration-300 hover:scale-105" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4 brutalist-font creative-font">Hi, I'm Soumik</h1>
             <p className="text-xl text-primary dark:text-blue-400 font-medium">A Passionate Web Developer & Designer</p>
             <div className="max-w-3xl mx-auto text-lg text-slate-600 dark:text-slate-300 space-y-4 mt-8 text-left">
