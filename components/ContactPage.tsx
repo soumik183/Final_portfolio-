@@ -3,9 +3,9 @@ import { GitHubIcon } from './icons/GitHubIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 
 // Firebase Imports (v9+ Modular SDK)
-// FIX: Switched to Firebase v8 syntax to resolve module export errors, as the environment seems to be using an older SDK version.
-import firebase from 'firebase/app';
-import 'firebase/database';
+// Fix: Use Firebase v8 compat imports to resolve module errors.
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
 
 
 // --- Firebase Initialization ---
@@ -22,21 +22,18 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
-// FIX: Switched to Firebase v8 types.
-let app: firebase.app.App;
+// Fix: Update Database type for v8 compat API.
 let database: firebase.database.Database | undefined;
 
 // Initialize Firebase using the v9+ modular SDK.
 // This check ensures that the app is only initialized once.
+// Fix: Initialize Firebase with v8 compat API.
 if (firebaseConfig.apiKey) {
     try {
-        // FIX: Using Firebase v8 initialization logic.
         if (!firebase.apps.length) {
-            app = firebase.initializeApp(firebaseConfig);
-        } else {
-            app = firebase.app();
+            firebase.initializeApp(firebaseConfig);
         }
-        database = firebase.database(app);
+        database = firebase.database();
     } catch (error) {
         console.error("Firebase initialization failed:", error);
     }
@@ -126,7 +123,7 @@ const ContactPage: React.FC = () => {
         setStatus('sending');
 
         try {
-            // FIX: Using Firebase v8 syntax to write to the database.
+            // Fix: Use v8 compat API to write to database.
             const messagesRef = database!.ref('contactMessages');
             await messagesRef.push({
                 name: name.trim(),
