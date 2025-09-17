@@ -3,9 +3,9 @@ import { GitHubIcon } from './icons/GitHubIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 
 // --- Web3Forms Configuration ---
-// The access key is securely managed through environment variables.
-// This variable must be set in your deployment environment.
-const WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
+// IMPORTANT: Replace this with your own Web3Forms access key.
+// You can get one for free at https://web3forms.com/
+const WEB3FORMS_ACCESS_KEY = "c9012678-0428-44de-a947-1191a1377852";
 
 
 // --- Icon Components ---
