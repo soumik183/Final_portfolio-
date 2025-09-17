@@ -2,43 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { GitHubIcon } from './icons/GitHubIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 
-// Firebase Imports (v9+ Modular SDK)
-// Fix: Use Firebase v8 compat imports to resolve module errors.
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-
-
-// --- Firebase Initialization ---
-// Your Firebase configuration is securely managed through environment variables.
-// These variables must be set in your deployment environment.
-const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASUREMENT_ID
-};
-
-// Fix: Update Database type for v8 compat API.
-let database: firebase.database.Database | undefined;
-
-// Initialize Firebase using the v9+ modular SDK.
-// This check ensures that the app is only initialized once.
-// Fix: Initialize Firebase with v8 compat API.
-if (firebaseConfig.apiKey) {
-    try {
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        database = firebase.database();
-    } catch (error) {
-        console.error("Firebase initialization failed:", error);
-    }
-}
-// --- End Firebase Initialization ---
+// --- Web3Forms Configuration ---
+// The access key is securely managed through environment variables.
+// This variable must be set in your deployment environment.
+const WEB3FORMS_ACCESS_KEY = process.env.WEB3FORMS_ACCESS_KEY;
 
 
 // --- Icon Components ---
@@ -80,7 +47,7 @@ const ContactPage: React.FC = () => {
     const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
     const [error, setError] = useState('');
 
-    const isFirebaseConfigured = !!database;
+    const isContactFormConfigured = !!WEB3FORMS_ACCESS_KEY;
 
     useEffect(() => {
         if (status === 'success') {
@@ -97,11 +64,11 @@ const ContactPage: React.FC = () => {
         { name: 'LinkedIn', url: 'https://linkedin.com/in/soumikbairagi', icon: <LinkedInIcon className="w-6 h-6" /> },
     ];
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
 
-        if (!isFirebaseConfigured) {
+        if (!isContactFormConfigured) {
             setError('The contact form is currently unavailable. Please try again later.');
             setStatus('error');
             return;
@@ -122,20 +89,29 @@ const ContactPage: React.FC = () => {
 
         setStatus('sending');
 
+        const formData = new FormData(e.currentTarget);
+        formData.append("access_key", WEB3FORMS_ACCESS_KEY!);
+        formData.append("from_name", "Soumik's Portfolio");
+        formData.append("subject", `New message from ${name}`);
+
         try {
-            // Fix: Use v8 compat API to write to database.
-            const messagesRef = database!.ref('contactMessages');
-            await messagesRef.push({
-                name: name.trim(),
-                email: email.trim(),
-                message: message.trim(),
-                createdAt: firebase.database.ServerValue.TIMESTAMP
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
             });
 
-            setStatus('success');
-            setName('');
-            setEmail('');
-            setMessage('');
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus('success');
+                setName('');
+                setEmail('');
+                setMessage('');
+            } else {
+                console.error("Web3Forms Error:", data);
+                setStatus('error');
+                setError(data.message || 'There was an error sending your message.');
+            }
         } catch (err) {
             console.error(err);
             setStatus('error');
@@ -191,7 +167,7 @@ const ContactPage: React.FC = () => {
                                         <input
                                             type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)}
                                             className="block w-full rounded-md border-slate-300 dark:border-slate-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-slate-800 disabled:opacity-50 pl-10"
-                                            required aria-label="Your Name" disabled={!isFirebaseConfigured}
+                                            required aria-label="Your Name" disabled={!isContactFormConfigured}
                                         />
                                     </div>
                                 </div>
@@ -204,7 +180,7 @@ const ContactPage: React.FC = () => {
                                         <input
                                             type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}
                                             className="block w-full rounded-md border-slate-300 dark:border-slate-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-slate-800 disabled:opacity-50 pl-10"
-                                            required aria-label="Your Email" disabled={!isFirebaseConfigured}
+                                            required aria-label="Your Email" disabled={!isContactFormConfigured}
                                         />
                                     </div>
                                 </div>
@@ -217,21 +193,21 @@ const ContactPage: React.FC = () => {
                                         <textarea
                                             id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)}
                                             className="block w-full rounded-md border-slate-300 dark:border-slate-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-slate-800 disabled:opacity-50 pl-10"
-                                            required aria-label="Your Message" disabled={!isFirebaseConfigured}
+                                            required aria-label="Your Message" disabled={!isContactFormConfigured}
                                         ></textarea>
                                     </div>
                                 </div>
                                 <div className="text-right pt-2">
                                     <button
                                         type="submit"
-                                        disabled={status === 'sending' || !isFirebaseConfigured || status === 'success'}
+                                        disabled={status === 'sending' || !isContactFormConfigured || status === 'success'}
                                         className={`primary-button w-full sm:w-auto inline-flex items-center justify-center font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out disabled:cursor-not-allowed
                                           ${status === 'success' ? 'bg-emerald-500 text-white' : 'bg-primary text-white hover:bg-primary-dark disabled:opacity-50'}`}
                                     >
                                         {getButtonContent()}
                                     </button>
                                 </div>
-                                 {!isFirebaseConfigured && (
+                                 {!isContactFormConfigured && (
                                      <div role="alert" className="mt-4 p-3 rounded-md bg-yellow-50 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 text-sm text-center">
                                         The contact form is temporarily unavailable.
                                     </div>
