@@ -3,10 +3,9 @@ import { GitHubIcon } from './icons/GitHubIcon';
 import { LinkedInIcon } from './icons/LinkedInIcon';
 
 // Firebase Imports (v9 Modular SDK)
-// FIX: The build environment seems to be using an older Firebase version (v8 or v9 compat).
-// Reverting to v8 namespaced syntax to resolve import errors.
-import firebase from 'firebase/app';
-import 'firebase/database';
+// Fix: Use namespace imports for Firebase to resolve module issues.
+import * as firebaseApp from 'firebase/app';
+import * as firebaseDatabase from 'firebase/database';
 
 
 // --- Firebase Initialization ---
@@ -24,16 +23,15 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-let database: firebase.database.Database | undefined;
+let database: firebaseDatabase.Database | undefined;
 
-// FIX: Updated Firebase initialization to v8 compatible syntax to match the project's likely dependency version.
-// This resolves issues with modular imports not being found.
+// Initialize Firebase using the v9 modular SDK to match the import map configuration.
 if (firebaseConfig.apiKey) {
     try {
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        if (!firebaseApp.getApps().length) {
+            firebaseApp.initializeApp(firebaseConfig);
         }
-        database = firebase.database();
+        database = firebaseDatabase.getDatabase();
     } catch (error) {
         console.error("Firebase initialization failed:", error);
     }
@@ -123,13 +121,12 @@ const ContactPage: React.FC = () => {
         setStatus('sending');
 
         try {
-            // FIX: Updated Firebase database calls to v8 compatible syntax.
-            const messagesRef = database!.ref('contactMessages');
-            await messagesRef.push({
+            const messagesRef = firebaseDatabase.ref(database!, 'contactMessages');
+            await firebaseDatabase.push(messagesRef, {
                 name: name.trim(),
                 email: email.trim(),
                 message: message.trim(),
-                createdAt: firebase.database.ServerValue.TIMESTAMP
+                createdAt: firebaseDatabase.serverTimestamp()
             });
 
             setStatus('success');
