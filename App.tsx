@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
+import ContactPage from './components/ContactPage';
 
 const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
     const sleek = `
@@ -81,14 +82,18 @@ const App: React.FC = () => {
       setColorMode(savedColorMode);
     }
     if (savedUiStyle && Object.values(UIStyle).includes(savedUiStyle)) {
-      setUiStyle(savedUiStyle);
+        setUiStyle(savedUiStyle);
+    } else {
+        setUiStyle(UIStyle.Sleek);
     }
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.remove('dark', 'light');
-    root.classList.add(colorMode);
+    if (colorMode === ColorMode.Dark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     localStorage.setItem('portfolio-color-mode', colorMode);
   }, [colorMode]);
 
@@ -96,37 +101,36 @@ const App: React.FC = () => {
     localStorage.setItem('portfolio-ui-style', uiStyle);
   }, [uiStyle]);
 
+  // Scroll animation observer
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        { threshold: 0.1 }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
     );
 
     const elements = document.querySelectorAll('.animate-on-scroll');
     elements.forEach((el) => observer.observe(el));
 
     return () => elements.forEach((el) => observer.unobserve(el));
-  }, [uiStyle]); // Re-run if UI style changes, as it might affect layout/visibility
+  }, []);
 
   return (
-    <div className={`font-sans bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 min-h-screen`}>
+    <div className={`bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 font-sans`}>
+      <StyleInjector uiStyle={uiStyle} />
       <Header 
         colorMode={colorMode} 
-        setColorMode={setColorMode}
-        uiStyle={uiStyle}
-        setUiStyle={setUiStyle}
+        setColorMode={setColorMode} 
+        uiStyle={uiStyle} 
+        setUiStyle={setUiStyle} 
       />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-16 md:space-y-24">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="space-y-24 md:space-y-32">
             <Hero />
             <Services />
             <Process />
@@ -134,10 +138,10 @@ const App: React.FC = () => {
             <TechStack />
             <Testimonials />
             <FAQ />
+            <ContactPage />
         </div>
       </main>
       <Footer />
-      <StyleInjector uiStyle={uiStyle} />
     </div>
   );
 };
