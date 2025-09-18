@@ -8,7 +8,6 @@ import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
-import ContactPage from './components/ContactPage';
 import AboutPage from './components/AboutPage';
 
 const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
@@ -119,7 +118,6 @@ const App: React.FC = () => {
             <TechStack />
             <Testimonials />
             <FAQ />
-            <ContactPage />
         </div>
       </main>
       <Footer />
