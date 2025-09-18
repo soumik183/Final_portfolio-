@@ -103,22 +103,29 @@ const App: React.FC = () => {
   }, [uiStyle]);
 
   // Scroll animation observer
-  useEffect(() => {
+  const observerRef = React.useCallback((node: HTMLElement | null) => {
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    const elements = document.querySelectorAll('.animate-on-scroll');
+    const elements = node.querySelectorAll('.animate-on-scroll');
     elements.forEach((el) => observer.observe(el));
 
-    return () => elements.forEach((el) => observer.unobserve(el));
+    // Disconnect the observer when the component unmounts
+    return () => {
+        elements.forEach((el) => observer.unobserve(el));
+        observer.disconnect();
+    };
   }, []);
 
   return (
@@ -130,7 +137,7 @@ const App: React.FC = () => {
         uiStyle={uiStyle} 
         setUiStyle={setUiStyle} 
       />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main ref={observerRef} className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="space-y-24 md:space-y-32">
             <Hero />
             <AboutPage />
