@@ -41,7 +41,7 @@ const ProjectsPage: React.FC = () => {
     return (
         <section id="projects">
             <div className="text-center mb-12">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h1>
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">A selection of projects I'm proud of.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -51,9 +51,9 @@ const ProjectsPage: React.FC = () => {
                         className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group"
                         style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
                     >
-                        <img className="w-full h-56 object-cover transition-transform duration-300" src={p.imageUrl} alt={p.title} />
+                        <img className="w-full h-56 object-cover transition-transform duration-300" src={p.imageUrl} alt={p.title} loading="lazy" />
                         <div className="p-6 flex flex-col h-full">
-                            <h3 className="text-xl font-bold mb-2 brutalist-font">{p.title}</h3>
+                            <h3 className="text-lg md:text-xl font-bold mb-2 brutalist-font">{p.title}</h3>
                             <p className="text-slate-600 dark:text-slate-300 mb-4 flex-grow">{p.description}</p>
                             <div className="flex flex-wrap gap-2 mb-4">
                                 {p.tech.map(t => <span key={t} className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{t}</span>)}

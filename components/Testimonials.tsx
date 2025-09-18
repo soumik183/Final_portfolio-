@@ -62,10 +62,10 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
                 <StarIcon key={i} className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} />
             ))}
         </div>
-        <p className="text-slate-600 dark:text-slate-300 italic">"{testimonial.quote}"</p>
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 italic">"{testimonial.quote}"</p>
     </div>
     <div className="flex items-center mt-6">
-      <img className="w-12 h-12 rounded-full mr-4" src={testimonial.avatar} alt={`${testimonial.name}'s profile photo`} />
+      <img className="w-12 h-12 rounded-full mr-4" src={testimonial.avatar} alt={`${testimonial.name}'s profile photo`} loading="lazy" />
       <div>
         <p className="font-bold text-slate-800 dark:text-white">{testimonial.name}</p>
         <p className="text-sm text-slate-500 dark:text-slate-400">{testimonial.title}</p>

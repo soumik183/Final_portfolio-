@@ -52,6 +52,14 @@ const Services: React.FC = () => {
       description: 'We’ll start with a detailed discussion of your goals, and I’ll provide support after launch.' 
     },
   ];
+  
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId.substring(1));
+    if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
     
   return (
     <section id="services">
@@ -83,7 +91,7 @@ const Services: React.FC = () => {
             </div>
 
              <div className="mt-10 text-center">
-                <a href="#contact" className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
+                <a href="#contact" onClick={(e) => handleScrollTo(e, '#contact')} className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
                     Claim Offer & Get In Touch
                 </a>
             </div>

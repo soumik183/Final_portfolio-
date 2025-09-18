@@ -1,12 +1,20 @@
 import React from 'react';
 
 const AboutPage: React.FC = () => {
+    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+        e.preventDefault();
+        const targetElement = document.getElementById(targetId.substring(1));
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+
     return (
         <section id="home" className="text-center">
             <img src="https://i.ibb.co/PVnLvR2/AIRetouch-20250917-122058327.png" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700 transition-transform duration-300 hover:scale-105" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 brutalist-font creative-font">Hi, I'm Soumik</h1>
-            <p className="text-xl text-primary dark:text-blue-400 font-medium">A Passionate Web Developer & Designer</p>
-            <div className="max-w-3xl mx-auto text-lg text-slate-600 dark:text-slate-300 space-y-4 mt-8 text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 brutalist-font creative-font">Hi, I'm Soumik</h1>
+            <p className="text-lg sm:text-xl text-primary dark:text-blue-400 font-medium">A Passionate Web Developer & Designer</p>
+            <div className="max-w-3xl mx-auto text-base sm:text-lg text-slate-600 dark:text-slate-300 space-y-4 mt-8 text-left">
                 <p>
                     I started my journey with a simple ‘Hello World,’ and ever since, I’ve loved how the web can bring people and ideas together. I enjoy making websites and apps that look good, work smoothly, and are easy for anyone to use.
                 </p>
@@ -25,10 +33,10 @@ const AboutPage: React.FC = () => {
                     I build beautiful, fast, and user-centric web experiences that drive results.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-                    <a href="#projects" className="primary-button w-full sm:w-auto inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
+                    <a href="#projects" onClick={(e) => handleScrollTo(e, '#projects')} className="primary-button w-full sm:w-auto inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
                         View My Work
                     </a>
-                    <a href="#contact" className="primary-button w-full sm:w-auto inline-block bg-transparent border-2 border-primary text-primary font-bold py-3 px-8 rounded-full hover:bg-primary hover:text-white transition-all duration-300">
+                    <a href="#contact" onClick={(e) => handleScrollTo(e, '#contact')} className="primary-button w-full sm:w-auto inline-block bg-transparent border-2 border-primary text-primary font-bold py-3 px-8 rounded-full hover:bg-primary hover:text-white transition-all duration-300">
                         Get In Touch
                     </a>
                 </div>

@@ -44,7 +44,7 @@ const Process: React.FC = () => {
                         style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
                     >
                         {step.icon}
-                        <h3 className="text-xl font-bold mb-2 brutalist-font">{step.title}</h3>
+                        <h3 className="text-lg md:text-xl font-bold mb-2 brutalist-font">{step.title}</h3>
                         <p className="text-slate-600 dark:text-slate-300">{step.description}</p>
                     </div>
                 ))}

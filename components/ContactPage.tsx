@@ -43,7 +43,7 @@ const ContactPage: React.FC = () => {
             <div className="card bg-light-card dark:bg-dark-card p-8 md:p-12 rounded-lg shadow-xl max-w-lg mx-auto">
                 <div className="space-y-8">
                     <div>
-                        <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-4 brutalist-font">Contact Information</h3>
+                        <h3 className="text-lg md:text-xl font-bold text-slate-800 dark:text-white mb-4 brutalist-font">Contact Information</h3>
                         <p className="text-slate-600 dark:text-slate-400">Feel free to reach out. I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.</p>
                     </div>
                     <div className="space-y-6">
