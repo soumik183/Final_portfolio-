@@ -62,7 +62,7 @@ const Services: React.FC = () => {
         </p>
       </div>
       <div className="max-w-4xl mx-auto">
-        <div className="card bg-light-card dark:bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
+        <div className="card bg-light-card dark:bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
           <div className="p-8 md:p-10">
              <div className="text-center">
                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white brutalist-font">Everything You Need, One Simple Price</h3>

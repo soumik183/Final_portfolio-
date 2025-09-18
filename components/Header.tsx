@@ -42,6 +42,7 @@ const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUi
   }, []);
 
   const navLinks: { name: string; href: string }[] = [
+    { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Projects', href: '#projects' },

@@ -40,7 +40,7 @@ const Process: React.FC = () => {
                 {processSteps.map((step, index) => (
                     <div 
                         key={index} 
-                        className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:-translate-y-2 animate-on-scroll"
+                        className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:-translate-y-2"
                         style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
                     >
                         {step.icon}

@@ -102,25 +102,6 @@ const App: React.FC = () => {
     localStorage.setItem('portfolio-ui-style', uiStyle);
   }, [uiStyle]);
 
-  // Scroll animation observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => elements.forEach((el) => observer.unobserve(el));
-  }, []);
-
   return (
     <div className={`bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 font-sans`}>
       <StyleInjector uiStyle={uiStyle} />

@@ -90,7 +90,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className }) => {
         {testimonials.map((testimonial, index) => (
           <div 
             key={index}
-            className="animate-on-scroll h-full"
+            className="h-full"
             style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
           >
             <TestimonialCard testimonial={testimonial} />

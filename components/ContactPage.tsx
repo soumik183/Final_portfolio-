@@ -133,7 +133,7 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <section id="contact" className="animate-on-scroll">
+        <section id="contact">
             <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">Let's Build Something Great</h1>
                 <p className="text-slate-600 dark:text-slate-400 mt-4 mb-12 text-base md:text-lg">

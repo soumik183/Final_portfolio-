@@ -33,7 +33,7 @@ const TechStack: React.FC = () => {
                     {skills.map((skill, index) => (
                         <div 
                             key={skill.name} 
-                            className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-blue-500/20 animate-on-scroll tech-card"
+                            className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-blue-500/20 tech-card"
                             style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
                         >
                             <div className="h-14 w-14 flex items-center justify-center">

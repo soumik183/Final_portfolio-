@@ -48,10 +48,10 @@ const ProjectsPage: React.FC = () => {
                 {projects.map((p, index) => (
                     <div 
                         key={p.title} 
-                        className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group animate-on-scroll"
+                        className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group"
                         style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
                     >
-                        <img className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" src={p.imageUrl} alt={p.title} />
+                        <img className="w-full h-56 object-cover transition-transform duration-300" src={p.imageUrl} alt={p.title} />
                         <div className="p-6 flex flex-col h-full">
                             <h3 className="text-xl font-bold mb-2 brutalist-font">{p.title}</h3>
                             <p className="text-slate-600 dark:text-slate-300 mb-4 flex-grow">{p.description}</p>
