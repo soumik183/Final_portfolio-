@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage: React.FC = () => {
     return (
-        <section id="about" className="text-center">
+        <section id="home" className="text-center">
             <img src="https://i.ibb.co/PVnLvR2/AIRetouch-20250917-122058327.png" alt="Soumik" className="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg border-4 border-white dark:border-slate-700 transition-transform duration-300 hover:scale-105" />
             <h1 className="text-4xl md:text-5xl font-bold mb-4 brutalist-font creative-font">Hi, I'm Soumik</h1>
             <p className="text-xl text-primary dark:text-blue-400 font-medium">A Passionate Web Developer & Designer</p>
@@ -16,6 +16,19 @@ const AboutPage: React.FC = () => {
                  <p>
                     From small personal sites to full web apps, I put care into every detail so the result feels natural, friendly, and useful. Working with others excites me, and I love turning ideas into digital spaces that not only meet needs but also create a positive, lasting impact.
                 </p>
+            </div>
+            <div className="mt-16">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+                    Crafting Digital Excellence
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                    I build beautiful, fast, and user-centric web experiences that drive results.
+                </p>
+                <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+                    <a href="#projects" className="primary-button inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
+                        View My Work
+                    </a>
+                </div>
             </div>
         </section>
     );

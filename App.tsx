@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ColorMode, UIStyle } from './types';
 import Header from './components/Header';
-import Hero from './components/Hero';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
@@ -113,7 +112,6 @@ const App: React.FC = () => {
       />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="space-y-24 md:space-y-32">
-            <Hero />
             <AboutPage />
             <Services />
             <Process />
