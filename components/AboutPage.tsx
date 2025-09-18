@@ -24,9 +24,12 @@ const AboutPage: React.FC = () => {
                 <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                     I build beautiful, fast, and user-centric web experiences that drive results.
                 </p>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-                    <a href="#projects" className="primary-button inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+                    <a href="#projects" className="primary-button w-full sm:w-auto inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
                         View My Work
+                    </a>
+                    <a href="#contact" className="primary-button w-full sm:w-auto inline-block bg-transparent border-2 border-primary text-primary font-bold py-3 px-8 rounded-full hover:bg-primary hover:text-white transition-all duration-300">
+                        Get In Touch
                     </a>
                 </div>
             </div>

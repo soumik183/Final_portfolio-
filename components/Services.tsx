@@ -83,8 +83,8 @@ const Services: React.FC = () => {
             </div>
 
              <div className="mt-10 text-center">
-                <a href="#projects" className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
-                    See My Projects
+                <a href="#contact" className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
+                    Claim Offer & Get In Touch
                 </a>
             </div>
           </div>

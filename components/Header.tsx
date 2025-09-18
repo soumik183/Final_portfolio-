@@ -45,6 +45,7 @@ const Header: React.FC<HeaderProps> = ({ colorMode, setColorMode, uiStyle, setUi
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

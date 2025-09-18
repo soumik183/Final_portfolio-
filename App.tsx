@@ -9,6 +9,7 @@ import ProjectsPage from './components/ProjectsPage';
 import Process from './components/Process';
 import TechStack from './components/TechStack';
 import AboutPage from './components/AboutPage';
+import ContactPage from './components/ContactPage';
 
 const StyleInjector: React.FC<{ uiStyle: UIStyle }> = ({ uiStyle }) => {
     const sleek = `
@@ -118,6 +119,7 @@ const App: React.FC = () => {
             <TechStack />
             <Testimonials />
             <FAQ />
+            <ContactPage />
         </div>
       </main>
       <Footer />
