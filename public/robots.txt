@@ -1,5 +1,4 @@
 
 User-agent: *
 Allow: /
-
-Sitemap: https://soumikpf.vercel.app/sitemap.xml
+Sitemap: /sitemap.xml
