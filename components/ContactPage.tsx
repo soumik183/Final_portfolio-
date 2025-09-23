@@ -63,7 +63,7 @@ const ContactPage: React.FC = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
-                    access_key: 'c885bc82-fd77-47e8-a0f6-99218f2f4d92',
+                    access_key: process.env.WEB3FORM_ACCESS_KEY,
                     ...formData
                 })
             });
