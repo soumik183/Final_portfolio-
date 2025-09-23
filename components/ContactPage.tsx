@@ -13,16 +13,24 @@ const MessageSquareIcon: React.FC<{ className?: string }> = ({ className }) => (
 const SendIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
 );
+const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"></polyline></svg>
+);
+const XIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+);
+
 
 const ContactPage: React.FC = () => {
+    type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error';
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         websiteType: '',
         message: ''
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showCheckIcon, setShowCheckIcon] = useState(false);
+    const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>('idle');
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const websiteTypes = [
@@ -57,7 +65,7 @@ const ContactPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!validateForm()) return;
-        setIsSubmitting(true);
+        setSubmissionStatus('submitting');
         try {
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
@@ -69,17 +77,62 @@ const ContactPage: React.FC = () => {
             });
             const result = await response.json();
             if (result.success) {
-                setShowCheckIcon(true);
+                setSubmissionStatus('success');
                 setFormData({ name: '', email: '', websiteType: '', message: '' });
-                setTimeout(() => {
-                    setShowCheckIcon(false);
-                }, 1500);
+                setTimeout(() => setSubmissionStatus('idle'), 1500);
+            } else {
+                setSubmissionStatus('error');
+                setTimeout(() => setSubmissionStatus('idle'), 1500);
             }
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('Something went wrong. Please try again.');
-        } finally {
-            setIsSubmitting(false);
+            setSubmissionStatus('error');
+            setTimeout(() => setSubmissionStatus('idle'), 1500);
+        }
+    };
+    
+    const renderButtonContent = () => {
+        switch (submissionStatus) {
+            case 'submitting':
+                return (
+                    <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                    </>
+                );
+            case 'success':
+                return (
+                    <span className="flex items-center animate-fade-in">
+                        <CheckIcon className="w-5 h-5 mr-2" />
+                        Message Sent!
+                    </span>
+                );
+            case 'error':
+                 return (
+                    <span className="flex items-center animate-fade-in">
+                        <XIcon className="w-5 h-5 mr-2" />
+                        Submission Failed
+                    </span>
+                );
+            default: // idle
+                return (
+                    <>
+                        <SendIcon className="w-5 h-5 mr-2" />
+                        Send Inquiry
+                    </>
+                );
+        }
+    };
+
+    const getButtonClass = (status: SubmissionStatus) => {
+        switch(status) {
+            case 'submitting': return 'bg-primary/80 cursor-not-allowed';
+            case 'success': return 'bg-accent hover:bg-accent-dark focus:ring-accent';
+            case 'error': return 'bg-red-600 hover:bg-red-700 focus:ring-red-500';
+            default: return 'bg-primary hover:bg-primary-dark focus:ring-primary';
         }
     };
 
@@ -93,14 +146,6 @@ const ContactPage: React.FC = () => {
             </div>
 
             <div className="max-w-2xl mx-auto relative">
-                {showCheckIcon && (
-                    <div className="absolute -top-16 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-                        <svg className="w-24 h-24 text-green-500 animate-success" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 28L22 36L38 18" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" className="animate-draw" strokeDasharray="100" strokeDashoffset="100" />
-                        </svg>
-                    </div>
-                )}
-
                 <div className="card bg-light-card dark:bg-dark-card p-8 md:p-12 rounded-lg shadow-xl">
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-8 brutalist-font creative-font">Website Project Inquiry</h3>
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -146,21 +191,12 @@ const ContactPage: React.FC = () => {
                         </div>
 
                         <div>
-                            <button type="submit" disabled={isSubmitting} className="primary-button w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                                {isSubmitting ? (
-                                    <>
-                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Sending...
-                                    </>
-                                ) : (
-                                    <>
-                                        <SendIcon className="w-5 h-5 mr-2" />
-                                        Send Inquiry
-                                    </>
-                                )}
+                            <button 
+                                type="submit" 
+                                disabled={submissionStatus === 'submitting'} 
+                                className={`primary-button w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 ${getButtonClass(submissionStatus)}`}
+                            >
+                                {renderButtonContent()}
                             </button>
                         </div>
                     </form>
