@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface HeroProps {}
 
@@ -16,19 +18,37 @@ const Hero: React.FC<HeroProps> = () => {
       <DecorativeElement />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 brutalist-font creative-font animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+              <motion.h2 
+                className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 brutalist-font creative-font"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                   Crafting Digital Excellence
-              </h2>
-              <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+              </motion.h2>
+              <motion.p 
+                className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                   I build beautiful, fast, and user-centric web experiences that drive results.
-              </p>
-              <div className="animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6, type: "spring" }}
+              >
                   <a href="#projects" className="primary-button inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-transform transform hover:scale-105 duration-300">
                       View My Work
                   </a>
-              </div>
-          </div>
+              </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

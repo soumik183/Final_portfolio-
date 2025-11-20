@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion } from 'framer-motion';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
 import { PaletteIcon } from './icons/PaletteIcon';
 import { DevicePhoneMobileIcon } from './icons/DevicePhoneMobileIcon';
@@ -7,7 +9,13 @@ import { DocumentDuplicateIcon } from './icons/DocumentDuplicateIcon';
 import { ChatBubbleLeftRightIcon } from './icons/ChatBubbleLeftRightIcon';
 
 const ServiceFeature: React.FC<{ icon: React.ReactNode; title: string; children: React.ReactNode }> = ({ icon, title, children }) => (
-    <div className="flex items-start p-4 rounded-lg transition-all duration-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 transform hover:scale-105">
+    <motion.div 
+        className="flex items-start p-4 rounded-lg transition-colors duration-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
+        variants={{
+            hidden: { opacity: 0, x: -20 },
+            visible: { opacity: 1, x: 0 }
+        }}
+    >
         <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-full mr-4">
             {icon}
         </div>
@@ -15,7 +23,7 @@ const ServiceFeature: React.FC<{ icon: React.ReactNode; title: string; children:
             <h4 className="font-bold text-slate-800 dark:text-white">{title}</h4>
             <p className="text-sm text-slate-500 dark:text-slate-400">{children}</p>
         </div>
-    </div>
+    </motion.div>
 );
 
 
@@ -63,14 +71,27 @@ const Services: React.FC = () => {
     
   return (
     <section id="services">
-      <div className="text-center mb-12">
+      <motion.div 
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Signature Web Creation Package</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-4 max-w-3xl mx-auto text-base md:text-lg">
             I don't just build websites; I build digital experiences. My all-inclusive package is designed to provide everything you need to establish a powerful, professional, and effective online presence. From the initial spark of an idea to the final launch and beyond, I handle every detail with precision and care.
         </p>
-      </div>
+      </motion.div>
       <div className="max-w-4xl mx-auto">
-        <div className="card bg-light-card dark:bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+        <motion.div 
+            className="card bg-light-card dark:bg-dark-card rounded-xl shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ y: -5 }}
+        >
           <div className="p-8 md:p-10">
              <div className="text-center">
                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white brutalist-font">Everything You Need, One Simple Price</h3>
@@ -82,24 +103,45 @@ const Services: React.FC = () => {
                 <p className="text-slate-500 dark:text-slate-400 mb-8">Limited time offer. No hidden fees. Just one complete solution.</p>
              </div>
             
-            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
+            <motion.div 
+                className="grid sm:grid-cols-2 gap-x-8 gap-y-6"
+                variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                        opacity: 1,
+                        transition: {
+                            staggerChildren: 0.1
+                        }
+                    }
+                }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+            >
               {features.map(feature => (
                 <ServiceFeature key={feature.title} icon={feature.icon} title={feature.title}>
                   {feature.description}
                 </ServiceFeature>
               ))}
-            </div>
+            </motion.div>
 
              <div className="mt-10 text-center">
-                <a href="#contact" onClick={(e) => handleScrollTo(e, '#contact')} className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full hover:bg-accent-dark duration-300 claim-button-glow">
+                <motion.a 
+                    href="#contact" 
+                    onClick={(e) => handleScrollTo(e, '#contact')} 
+                    className="primary-button inline-block bg-accent text-white font-bold py-3 px-8 rounded-full claim-button-glow"
+                    whileHover={{ scale: 1.05, backgroundColor: "var(--accent-dark, #047857)" }}
+                    whileTap={{ scale: 0.95 }}
+                >
                     Claim Offer & Get In Touch
-                </a>
+                </motion.a>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default Services;
+    

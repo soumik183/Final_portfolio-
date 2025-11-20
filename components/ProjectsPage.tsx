@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion, Variants } from 'framer-motion';
 import { Project } from '../types';
 import { GitHubIcon } from './icons/GitHubIcon';
 
@@ -38,20 +40,56 @@ const projects: Project[] = [
 ];
 
 const ProjectsPage: React.FC = () => {
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15
+            }
+        }
+    };
+
+    const cardVariants: Variants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { 
+                type: "spring",
+                stiffness: 100,
+                damping: 20 
+            } 
+        }
+    };
+
     return (
         <section id="projects">
-            <div className="text-center mb-12">
+            <motion.div 
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold brutalist-font creative-font">My Work</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">A selection of projects I'm proud of.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            </motion.div>
+            <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+            >
                 {projects.map((p, index) => (
-                    <div 
+                    <motion.div 
                         key={p.title} 
                         className="project-card card bg-light-card dark:bg-dark-card rounded-lg shadow-lg overflow-hidden group"
-                        style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                        variants={cardVariants}
+                        whileHover={{ y: -10 }}
                     >
-                        <img className="w-full h-56 object-cover transition-transform duration-300" src={p.imageUrl} alt={p.title} loading="lazy" />
+                        <img className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105" src={p.imageUrl} alt={p.title} loading="lazy" />
                         <div className="p-6 flex flex-col h-full">
                             <h3 className="text-lg md:text-xl font-bold mb-2 brutalist-font">{p.title}</h3>
                             <p className="text-slate-600 dark:text-slate-300 mb-4 flex-grow">{p.description}</p>
@@ -68,9 +106,9 @@ const ProjectsPage: React.FC = () => {
                                 }
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </section>
     );
 };

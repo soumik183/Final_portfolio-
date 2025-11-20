@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion, Variants } from 'framer-motion';
 import { LightbulbIcon } from './icons/LightbulbIcon';
 import { PencilSquareIcon } from './icons/PencilSquareIcon';
 import { CodeBracketIcon } from './icons/CodeBracketIcon';
@@ -28,27 +30,55 @@ const processSteps = [
 ];
 
 const Process: React.FC = () => {
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    };
+
     return (
         <section id="process">
-            <div className="text-center mb-12">
+            <motion.div 
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Development Process</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl mx-auto">
                     A clear, collaborative, and transparent journey from concept to launch.
                 </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            </motion.div>
+            <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+            >
                 {processSteps.map((step, index) => (
-                    <div 
+                    <motion.div 
                         key={index} 
-                        className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:-translate-y-2"
-                        style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                        className="card bg-light-card dark:bg-dark-card p-6 text-center rounded-lg shadow-lg"
+                        variants={itemVariants}
+                        whileHover={{ y: -8, transition: { duration: 0.3 } }}
                     >
                         {step.icon}
                         <h3 className="text-lg md:text-xl font-bold mb-2 brutalist-font">{step.title}</h3>
                         <p className="text-slate-600 dark:text-slate-300">{step.description}</p>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </section>
     );
 };

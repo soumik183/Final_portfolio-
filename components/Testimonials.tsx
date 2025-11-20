@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion } from 'framer-motion';
 import type { Testimonial } from '../types';
 import { StarIcon } from './icons/StarIcon';
 
@@ -80,25 +82,58 @@ interface TestimonialsProps {
 }
 
 const Testimonials: React.FC<TestimonialsProps> = ({ className }) => {
+  const containerVariants = {
+      hidden: { opacity: 0 },
+      visible: {
+          opacity: 1,
+          transition: {
+              staggerChildren: 0.15
+          }
+      }
+  };
+
+  const itemVariants = {
+      hidden: { opacity: 0, y: 40 },
+      visible: { 
+          opacity: 1, 
+          y: 0,
+          transition: { duration: 0.6 }
+      }
+  };
+
   return (
     <section id="testimonials" className={className}>
-      <div className="text-center mb-12">
+      <motion.div 
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">What My Clients Say</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Real results from satisfied partners.</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      </motion.div>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {testimonials.map((testimonial, index) => (
-          <div 
+          <motion.div 
             key={index}
             className="h-full"
-            style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+            variants={itemVariants}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
             <TestimonialCard testimonial={testimonial} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };
 
 export default Testimonials;
+    

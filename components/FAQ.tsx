@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { FAQItem as FAQItemType } from '../types';
 
 const faqData: FAQItemType[] = [
@@ -46,32 +48,45 @@ const faqData: FAQItemType[] = [
 
 const FAQItem: React.FC<{ item: FAQItemType; isOpen: boolean; onClick: () => void }> = ({ item, isOpen, onClick }) => {
   return (
-    <div className="border-b border-slate-200 dark:border-slate-700">
+    <motion.div 
+        className="border-b border-slate-200 dark:border-slate-700"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+    >
       <h3>
         <button
           onClick={onClick}
-          className="flex justify-between items-center w-full py-5 text-left font-semibold text-base md:text-lg"
+          className="flex justify-between items-center w-full py-5 text-left font-semibold text-base md:text-lg focus:outline-none"
           aria-expanded={isOpen}
         >
           <span className="brutalist-font">{item.question}</span>
-          <svg
-            className={`w-4 h-4 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          <motion.svg
+            className="w-4 h-4"
             fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          </motion.svg>
         </button>
       </h3>
-      <div
-        className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
-      >
-        <div className="overflow-hidden">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
             <div className="pb-5 pr-4 text-slate-600 dark:text-slate-300">
                 {item.answer}
             </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
@@ -88,10 +103,16 @@ const FAQ: React.FC<FAQProps> = ({ className }) => {
 
   return (
     <section id="faq" className={className}>
-      <div className="text-center mb-12">
+      <motion.div 
+        className="text-center mb-12"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">Frequently Asked Questions</h2>
         <p className="text-slate-600 dark:text-slate-400 mt-2">Quick answers to common queries.</p>
-      </div>
+      </motion.div>
       <div className="max-w-3xl mx-auto">
         {faqData.map((item, index) => (
           <FAQItem
@@ -107,3 +128,4 @@ const FAQ: React.FC<FAQProps> = ({ className }) => {
 };
 
 export default FAQ;
+    

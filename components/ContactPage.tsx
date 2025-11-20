@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Locally defined icons to match the new form's requirements
 const UserIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -19,6 +21,9 @@ const CheckIcon: React.FC<{ className?: string }> = ({ className }) => (
 const XIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 );
+const ChevronDownIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m6 9 6 6 6-6"></path></svg>
+);
 
 
 const ContactPage: React.FC = () => {
@@ -32,6 +37,9 @@ const ContactPage: React.FC = () => {
     });
     const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>('idle');
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const websiteTypes = [
         "Personal Websites", "Business Websites", "E-Commerce Websites", "Educational Websites", "Landing Pages", "Portfolio Websites",
@@ -39,6 +47,32 @@ const ContactPage: React.FC = () => {
         "Social Media Platforms", "Real Estate Websites", "Restaurant & Food Delivery Websites", "Healthcare Websites", "Custom Web Apps",
         "Entertainment Websites", "Job Portals", "Travel Websites", "SEO-Optimized Websites", "Other"
     ];
+
+    // Load saved data from local storage on mount
+    useEffect(() => {
+        const savedData = localStorage.getItem('contact_form_data');
+        if (savedData) {
+            try {
+                setFormData(prev => ({ ...prev, ...JSON.parse(savedData) }));
+            } catch (e) {
+                console.error("Failed to parse saved form data", e);
+            }
+        }
+    }, []);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const validateForm = () => {
         const newErrors: { [key: string]: string } = {};
@@ -56,10 +90,24 @@ const ContactPage: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const newData = { ...formData, [name]: value };
+        setFormData(newData);
+        localStorage.setItem('contact_form_data', JSON.stringify(newData));
+
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
+    };
+
+    const handleTypeSelect = (type: string) => {
+        const newData = { ...formData, websiteType: type };
+        setFormData(newData);
+        localStorage.setItem('contact_form_data', JSON.stringify(newData));
+        
+        if (errors.websiteType) {
+            setErrors(prev => ({ ...prev, websiteType: '' }));
+        }
+        setIsDropdownOpen(false);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,6 +127,7 @@ const ContactPage: React.FC = () => {
             if (result.success) {
                 setSubmissionStatus('success');
                 setFormData({ name: '', email: '', websiteType: '', message: '' });
+                localStorage.removeItem('contact_form_data'); // Clear saved data on success
                 setTimeout(() => setSubmissionStatus('idle'), 1500);
             } else {
                 setSubmissionStatus('error');
@@ -136,24 +185,42 @@ const ContactPage: React.FC = () => {
         }
     };
 
+    const dropdownVariants = {
+        hidden: { opacity: 0, y: -10, scale: 0.98 },
+        visible: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: -10, scale: 0.98 }
+    };
+
     return (
         <section id="contact">
-            <div className="text-center mb-12">
+            <motion.div 
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">Get In Touch</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl mx-auto">
                     Have a project in mind or want to collaborate? Fill out the form below and I'll get back to you soon!
                 </p>
-            </div>
+            </motion.div>
 
             <div className="max-w-2xl mx-auto relative">
-                <div className="card bg-light-card dark:bg-dark-card p-8 md:p-12 rounded-lg shadow-xl">
+                <motion.div 
+                    className="card bg-light-card dark:bg-dark-card p-8 md:p-12 rounded-lg shadow-xl"
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-8 brutalist-font creative-font">Website Project Inquiry</h3>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><UserIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-light-card dark:bg-dark-card ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="John Doe" />
+                                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="John Doe" />
                             </div>
                             {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.name}</p>}
                         </div>
@@ -162,22 +229,63 @@ const ContactPage: React.FC = () => {
                             <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><MailIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-light-card dark:bg-dark-card ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="john@example.com" />
+                                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="john@example.com" />
                             </div>
                             {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.email}</p>}
                         </div>
 
-                        <div>
+                        <div className="relative" ref={dropdownRef}>
                             <label htmlFor="websiteType" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Website Type</label>
-                            <div className="relative">
-                                <select id="websiteType" name="websiteType" value={formData.websiteType} onChange={handleChange} className={`block w-full py-3 px-4 border rounded-lg shadow-sm focus:outline-none focus:ring-2 appearance-none bg-light-card dark:bg-dark-card ${errors.websiteType ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`}>
-                                    <option value="">Select a website type</option>
-                                    {websiteTypes.map(type => <option key={type} value={type}>{type}</option>)}
-                                </select>
-                                <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                                    <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                                </div>
-                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className={`relative w-full py-3 px-4 border rounded-lg shadow-sm text-left focus:outline-none focus:ring-2 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 transition-all duration-200 ${
+                                    errors.websiteType 
+                                        ? 'border-red-500 focus:ring-red-500' 
+                                        : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'
+                                }`}
+                            >
+                                <span className={`block truncate ${formData.websiteType ? 'text-slate-900 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                                    {formData.websiteType || "Select a website type"}
+                                </span>
+                                <span className="pointer-events-none flex items-center">
+                                    <ChevronDownIcon className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                </span>
+                            </button>
+
+                            <AnimatePresence>
+                                {isDropdownOpen && (
+                                    <motion.div
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit="exit"
+                                        variants={dropdownVariants}
+                                        transition={{ duration: 0.2 }}
+                                        className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl max-h-60 rounded-lg py-1 text-base overflow-auto focus:outline-none sm:text-sm custom-scrollbar"
+                                    >
+                                        {websiteTypes.map((type) => (
+                                            <div
+                                                key={type}
+                                                className={`cursor-pointer select-none relative py-2.5 pl-4 pr-9 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors ${
+                                                    formData.websiteType === type 
+                                                        ? 'bg-blue-50 dark:bg-slate-700/50 text-primary dark:text-blue-400 font-medium' 
+                                                        : 'text-slate-700 dark:text-slate-300'
+                                                }`}
+                                                onClick={() => handleTypeSelect(type)}
+                                            >
+                                                <span className="block truncate">
+                                                    {type}
+                                                </span>
+                                                {formData.websiteType === type && (
+                                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-primary dark:text-blue-400">
+                                                        <CheckIcon className="h-4 w-4" />
+                                                    </span>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                             {errors.websiteType && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.websiteType}</p>}
                         </div>
 
@@ -185,22 +293,24 @@ const ContactPage: React.FC = () => {
                             <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Project Details</label>
                             <div className="relative">
                                 <div className="absolute top-3.5 left-3 pointer-events-none"><MessageSquareIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-light-card dark:bg-dark-card ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="Tell me about your project, timeline, budget, etc..."></textarea>
+                                <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="Tell me about your project, timeline, budget, etc..."></textarea>
                             </div>
                             {errors.message && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.message}</p>}
                         </div>
 
                         <div>
-                            <button 
+                            <motion.button 
                                 type="submit" 
                                 disabled={submissionStatus === 'submitting'} 
                                 className={`primary-button w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 ${getButtonClass(submissionStatus)}`}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                             >
                                 {renderButtonContent()}
-                            </button>
+                            </motion.button>
                         </div>
                     </form>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

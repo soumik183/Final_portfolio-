@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { motion, Variants } from 'framer-motion';
 import { TailwindCssIcon } from './icons/TailwindCssIcon';
 
 const skills = [
@@ -22,27 +24,63 @@ const skills = [
 ];
 
 const TechStack: React.FC = () => {
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { scale: 0, opacity: 0 },
+        visible: { 
+            scale: 1, 
+            opacity: 1, 
+            transition: { 
+                type: "spring", 
+                stiffness: 260, 
+                damping: 20 
+            } 
+        }
+    };
+
     return (
         <section id="tech-stack">
-            <div className="text-center mb-12">
+            <motion.div 
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+            >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold brutalist-font creative-font">My Go-To Technologies</h2>
                 <p className="text-slate-600 dark:text-slate-400 mt-2">I use a modern, high-performance tech stack to build my projects.</p>
-            </div>
+            </motion.div>
             <div className="max-w-4xl mx-auto">
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
+                <motion.div 
+                    className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                >
                     {skills.map((skill, index) => (
-                        <div 
+                        <motion.div 
                             key={skill.name} 
-                            className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-blue-500/20 tech-card"
-                            style={{ '--animation-delay': `${index * 100}ms` } as React.CSSProperties}
+                            className="group card flex flex-col items-center justify-center gap-4 p-6 bg-slate-100 dark:bg-dark-card rounded-xl shadow-md text-center tech-card"
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05, rotate: 2, transition: { type: "spring", stiffness: 400, damping: 10 } }}
                         >
                             <div className="h-14 w-14 flex items-center justify-center">
                                 {skill.icon}
                             </div>
                             <span className="font-semibold text-slate-700 dark:text-slate-200">{skill.name}</span>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
