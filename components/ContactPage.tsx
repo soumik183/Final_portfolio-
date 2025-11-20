@@ -24,6 +24,9 @@ const XIcon: React.FC<{ className?: string }> = ({ className }) => (
 const ChevronDownIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m6 9 6 6 6-6"></path></svg>
 );
+const GlobeIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+);
 
 
 const ContactPage: React.FC = () => {
@@ -191,6 +194,9 @@ const ContactPage: React.FC = () => {
         exit: { opacity: 0, y: -10, scale: 0.98 }
     };
 
+    // Using style object for dynamic borderRadius ensures it works with the CSS variables from StyleInjector
+    const inputStyle = { borderRadius: 'var(--card-border-radius)' };
+
     return (
         <section id="contact">
             <motion.div 
@@ -220,7 +226,16 @@ const ContactPage: React.FC = () => {
                             <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><UserIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="John Doe" />
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    value={formData.name} 
+                                    onChange={handleChange} 
+                                    style={inputStyle}
+                                    className={`block w-full pl-10 pr-3 py-3 border shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} 
+                                    placeholder="John Doe" 
+                                />
                             </div>
                             {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.name}</p>}
                         </div>
@@ -229,29 +244,44 @@ const ContactPage: React.FC = () => {
                             <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><MailIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="john@example.com" />
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    value={formData.email} 
+                                    onChange={handleChange} 
+                                    style={inputStyle}
+                                    className={`block w-full pl-10 pr-3 py-3 border shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} 
+                                    placeholder="john@example.com" 
+                                />
                             </div>
                             {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.email}</p>}
                         </div>
 
                         <div className="relative" ref={dropdownRef}>
                             <label htmlFor="websiteType" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Website Type</label>
-                            <button
-                                type="button"
-                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                className={`relative w-full py-3 px-4 border rounded-lg shadow-sm text-left focus:outline-none focus:ring-2 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 transition-all duration-200 ${
-                                    errors.websiteType 
-                                        ? 'border-red-500 focus:ring-red-500' 
-                                        : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'
-                                }`}
-                            >
-                                <span className={`block truncate ${formData.websiteType ? 'text-slate-900 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400'}`}>
-                                    {formData.websiteType || "Select a website type"}
-                                </span>
-                                <span className="pointer-events-none flex items-center">
-                                    <ChevronDownIcon className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                                </span>
-                            </button>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+                                    <GlobeIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    style={inputStyle}
+                                    className={`relative w-full pl-10 pr-4 py-3 border shadow-sm text-left focus:outline-none focus:ring-2 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 transition-all duration-200 ${
+                                        errors.websiteType 
+                                            ? 'border-red-500 focus:ring-red-500' 
+                                            : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'
+                                    }`}
+                                >
+                                    <span className={`block truncate ${formData.websiteType ? 'text-slate-900 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                                        {formData.websiteType || "Select a website type"}
+                                    </span>
+                                    <span className="pointer-events-none flex items-center">
+                                        <ChevronDownIcon className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                    </span>
+                                </button>
+                            </div>
 
                             <AnimatePresence>
                                 {isDropdownOpen && (
@@ -261,28 +291,31 @@ const ContactPage: React.FC = () => {
                                         exit="exit"
                                         variants={dropdownVariants}
                                         transition={{ duration: 0.2 }}
-                                        className="absolute z-50 mt-1 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl max-h-60 rounded-lg py-1 text-base overflow-auto focus:outline-none sm:text-sm custom-scrollbar"
+                                        style={inputStyle}
+                                        className="absolute z-50 mt-2 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl max-h-60 overflow-hidden focus:outline-none sm:text-sm"
                                     >
-                                        {websiteTypes.map((type) => (
-                                            <div
-                                                key={type}
-                                                className={`cursor-pointer select-none relative py-2.5 pl-4 pr-9 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors ${
-                                                    formData.websiteType === type 
-                                                        ? 'bg-blue-50 dark:bg-slate-700/50 text-primary dark:text-blue-400 font-medium' 
-                                                        : 'text-slate-700 dark:text-slate-300'
-                                                }`}
-                                                onClick={() => handleTypeSelect(type)}
-                                            >
-                                                <span className="block truncate">
-                                                    {type}
-                                                </span>
-                                                {formData.websiteType === type && (
-                                                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-primary dark:text-blue-400">
-                                                        <CheckIcon className="h-4 w-4" />
+                                        <div className="overflow-auto max-h-60 py-1 custom-scrollbar">
+                                            {websiteTypes.map((type) => (
+                                                <div
+                                                    key={type}
+                                                    className={`cursor-pointer select-none relative py-3 pl-4 pr-9 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors ${
+                                                        formData.websiteType === type 
+                                                            ? 'bg-blue-50 dark:bg-slate-800 text-primary dark:text-blue-400 font-medium' 
+                                                            : 'text-slate-700 dark:text-slate-300'
+                                                    }`}
+                                                    onClick={() => handleTypeSelect(type)}
+                                                >
+                                                    <span className="block truncate">
+                                                        {type}
                                                     </span>
-                                                )}
-                                            </div>
-                                        ))}
+                                                    {formData.websiteType === type && (
+                                                        <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-primary dark:text-blue-400">
+                                                            <CheckIcon className="h-4 w-4" />
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -293,7 +326,16 @@ const ContactPage: React.FC = () => {
                             <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Project Details</label>
                             <div className="relative">
                                 <div className="absolute top-3.5 left-3 pointer-events-none"><MessageSquareIcon className="h-5 w-5 text-slate-400 dark:text-slate-500" /></div>
-                                <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange} className={`block w-full pl-10 pr-3 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} placeholder="Tell me about your project, timeline, budget, etc..."></textarea>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    rows={5} 
+                                    value={formData.message} 
+                                    onChange={handleChange} 
+                                    style={inputStyle}
+                                    className={`block w-full pl-10 pr-3 py-3 border shadow-sm focus:outline-none focus:ring-2 bg-slate-50 dark:bg-slate-900/50 ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 dark:border-slate-700 focus:ring-primary focus:border-primary'}`} 
+                                    placeholder="Tell me about your project, timeline, budget, etc..."
+                                ></textarea>
                             </div>
                             {errors.message && <p className="mt-1 text-sm text-red-600 dark:text-red-500">{errors.message}</p>}
                         </div>
@@ -302,7 +344,7 @@ const ContactPage: React.FC = () => {
                             <motion.button 
                                 type="submit" 
                                 disabled={submissionStatus === 'submitting'} 
-                                className={`primary-button w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 ${getButtonClass(submissionStatus)}`}
+                                className={`primary-button w-full flex justify-center items-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300 ${getButtonClass(submissionStatus)}`}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
