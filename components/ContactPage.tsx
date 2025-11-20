@@ -291,8 +291,7 @@ const ContactPage: React.FC = () => {
                                         exit="exit"
                                         variants={dropdownVariants}
                                         transition={{ duration: 0.2 }}
-                                        style={inputStyle}
-                                        className="absolute z-50 mt-2 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl max-h-60 overflow-hidden focus:outline-none sm:text-sm"
+                                        className="card absolute z-50 mt-2 w-full bg-white dark:bg-slate-900 max-h-60 overflow-hidden focus:outline-none sm:text-sm"
                                     >
                                         <div className="overflow-auto max-h-60 py-1 custom-scrollbar">
                                             {websiteTypes.map((type) => (
